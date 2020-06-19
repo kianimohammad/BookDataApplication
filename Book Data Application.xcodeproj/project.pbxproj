@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C66806F249D65E30042EBC2 /* BookDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C66806D249D65E30042EBC2 /* BookDataModel.xcdatamodeld */; };
 		1CEB0CD22495838D00DDE266 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB0CD12495838D00DDE266 /* AppDelegate.swift */; };
 		1CEB0CD42495838D00DDE266 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB0CD32495838D00DDE266 /* SceneDelegate.swift */; };
 		1CEB0CD62495838D00DDE266 /* BookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB0CD52495838D00DDE266 /* BookVC.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C66806E249D65E30042EBC2 /* BookDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1CEB0CCE2495838D00DDE266 /* Book Data Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Book Data Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CEB0CD12495838D00DDE266 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CEB0CD32495838D00DDE266 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				1CEB0CE6249589C100DDE266 /* Book.swift */,
+				1C66806D249D65E30042EBC2 /* BookDataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				1CEB0CEC24958DA600DDE266 /* BookListTVC.swift in Sources */,
 				1CEB0CD62495838D00DDE266 /* BookVC.swift in Sources */,
 				1CEB0CD22495838D00DDE266 /* AppDelegate.swift in Sources */,
+				1C66806F249D65E30042EBC2 /* BookDataModel.xcdatamodeld in Sources */,
 				1CEB0CD42495838D00DDE266 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +366,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1C66806D249D65E30042EBC2 /* BookDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1C66806E249D65E30042EBC2 /* BookDataModel.xcdatamodel */,
+			);
+			currentVersion = 1C66806E249D65E30042EBC2 /* BookDataModel.xcdatamodel */;
+			path = BookDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1CEB0CC62495838D00DDE266 /* Project object */;
 }

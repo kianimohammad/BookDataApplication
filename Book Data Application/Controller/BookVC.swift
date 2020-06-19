@@ -7,8 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
 class BookVC: UIViewController {
+    
+    //MARK: - CoreData manipulation - appDelegate and the context
+    
+    // 1 - creating an instance of AppDelage
+    /// appDelegaet instance
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    // 2 - create the context
+    var managedContext: NSManagedObjectContext!
     
     var books: [Book]?
 
@@ -17,9 +27,17 @@ class BookVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+        // 2 - create the context
+        /// the context to use for the coreData
+        managedContext = appDelegate.persistentContainer.viewContext
         
-        loadData()
+//        NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+        
+//        loadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        loadCoreData()
     }
     
     func getDataFilePath() -> String {
@@ -37,10 +55,10 @@ class BookVC: UIViewController {
         let book = Book(title: title, author: author, pages: pages, year: year)
         books?.append(book)
         
-        textFields[0].text = ""
-        textFields[1].text = ""
-        textFields[2].text = ""
-        textFields[3].text = ""
+        for textField in textFields {
+            textField.text = ""
+            textField.resignFirstResponder()
+        }
     }
     
     func loadData() {
@@ -89,7 +107,63 @@ class BookVC: UIViewController {
         } catch {
             print(error)
         }
+    }
+    
+    //MARK: - CoreData functions
+    
+    func loadCoreData() {
+        books = [Book]()
         
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if results is [NSManagedObject] {
+                for result in (results as! [NSManagedObject]) {
+                    let title = result.value(forKey: "title") as! String
+                    let author = result.value(forKey: "author") as! String
+                    let pages = result.value(forKey: "pages") as! Int
+                    let year = result.value(forKey: "year") as! Int
+                    
+                    books?.append(Book(title: title, author: author, pages: pages, year: year))
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    @objc func saveCoreData() {
+        clearCoreData()
+        for book in books! {
+            let bookEntity = NSEntityDescription.insertNewObject(forEntityName: "BookModel", into: managedContext)
+            bookEntity.setValue(book.title, forKey: "title")
+            bookEntity.setValue(book.author, forKey: "author")
+            bookEntity.setValue(book.pages, forKey: "pages")
+            bookEntity.setValue(book.year, forKey: "year")
+        }
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func clearCoreData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+//        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            for result in results {
+                if let managedObject = result as? NSManagedObject {
+                    managedContext.delete(managedObject)
+                }
+            }
+        } catch {
+            print("Error deleting records \(error)")
+        }
         
     }
     
